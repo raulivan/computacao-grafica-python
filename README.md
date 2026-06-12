@@ -26,4 +26,7 @@ Conjunto de aulas com demonstrações práticas dos conceitos abordados na disci
     pip install -r requirements.txt
 
     pip install --upgrade -r requirements.txt
+
+
+    pip freeze > requirements.txt
 ```
