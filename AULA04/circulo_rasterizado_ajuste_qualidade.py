@@ -2,7 +2,8 @@ from PIL import Image
 
 def renderizar_circulo(fator_qualidade):
     """
-        O parâmetro O fator_qualidade vai funcionar como um multiplicador da resolução da imagem.
+        O parâmetro O fator_qualidade vai funcionar 
+        como um multiplicador da resolução da imagem.
     
         A resolução padrão será: Tela de 300x300 e Raio 50.
         
@@ -44,20 +45,22 @@ def renderizar_circulo(fator_qualidade):
 def main():
     print("Iniciando - Resolução e Aliasing...")
     
-    # TESTE 1: BAIXÍSSIMA QUALIDADE (Escadinhas gigantes) significa que o círculo terá apenas 5 pixels de raio!
+    # TESTE 1: BAIXÍSSIMA QUALIDADE (Escadinhas gigantes)
+    # O círculo terá apenas 5 pixels de raio!
     img_baixa = renderizar_circulo(fator_qualidade=0.1)
     
     img_baixa_ampliada = img_baixa.resize((300, 300), Image.NEAREST)
     img_baixa_ampliada.save("circulo_1_baixa_qualidade.png")
     print("Gerado: circulo_1_baixa_qualidade.png (Escadinhas evidentes)")
 
-    # TESTE 2: QUALIDADE NORMAL, A mesma do nosso exemplo criar_circulo_raterizado.py
-    
+    # TESTE 2: QUALIDADE NORMAL, A mesma do nosso exemplo 
+    # criar_circulo_raterizado.py
     img_normal = renderizar_circulo(fator_qualidade=1.0)
     img_normal.save("circulo_2_qualidade_normal.png")
     print("Gerado: circulo_2_qualidade_normal.png (Borda padrão)")
 
-    # TESTE 3: ALTA RESOLUÇÃO, Renderizado em 1200x1200, escadinha quase invisível
+    # TESTE 3: ALTA RESOLUÇÃO, Renderizado em 1200x1200, 
+    # escadinha quase invisível
     img_alta = renderizar_circulo(fator_qualidade=4.0)
     
     img_alta_reduzida = img_alta.resize((300, 300), Image.LANCZOS)

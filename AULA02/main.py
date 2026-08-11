@@ -9,8 +9,8 @@ def main():
     fig, ax = plt.subplots(figsize=(6, 6))
 
     # Configura os limites do "Plano 2D"
-    ax.set_xlim(0, 15) # Eixo X
-    ax.set_ylim(0, 15) # Eixo Y
+    ax.set_xlim(0, 15) # Eixo X - Horizontal
+    ax.set_ylim(0, 15) # Eixo Y - Vertical
     ax.set_title("Hello World - Computação Gráfica", fontsize=14)
     ax.grid(True, linestyle='--', alpha=0.6)
 

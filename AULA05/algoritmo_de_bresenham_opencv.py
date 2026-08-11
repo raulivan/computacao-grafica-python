@@ -17,7 +17,7 @@ def main():
     # Primitiva: Polígono (Triângulo)
     pontos_triangulo = np.array([[150, 200], [100, 280], [200, 280]], np.int32)
     
-    # Spo toma cuidado nessa parte pq
+    # Só toma cuidado nessa parte pq
     # O OpenCV precisa que o array de pontos tenha o formato (número_pontos, 1, 2)
     pontos_triangulo = pontos_triangulo.reshape((-1, 1, 2))
     cv2.fillPoly(tela, [pontos_triangulo], (0, 255, 255)) # Triângulo Amarelo

@@ -14,7 +14,6 @@ def desenhar_linha_bresenham(img, x0, y0, x1, y1, cor):
     erro = dx - dy
     
     x, y = x0, y0
-    
     # Laço infinito até chegar no ponto final
     while True:
         # Pinta o pixel na matriz NumPy
