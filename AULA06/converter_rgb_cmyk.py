@@ -15,8 +15,13 @@ def criar_imagem_cmyk(largura, altura, cor_cmyk, nome_arquivo):
     """
     Cria uma imagem CMYK com uma cor sólida e a salva em disco.
     """
+    c_int = int((cor_cmyk[0]/100) * 255)
+    m_int = int((cor_cmyk[1]/100) * 255)
+    y_int = int((cor_cmyk[2]/100) * 255)
+    k_int = int((cor_cmyk[3]/100) * 255)
+
     # Alocamos a matriz agora no modo CMYK.
-    imagem = Image.new("CMYK", (largura, altura), cor_cmyk)
+    imagem = Image.new("CMYK", (largura, altura), (c_int,m_int,y_int,k_int))
 
     # como JPEG ou TIFF. O formato PNG não suporta CMYK nativamente.
     imagem.save(f"{nome_arquivo}.jpg")
@@ -70,4 +75,21 @@ if __name__ == "__main__":
     cor_amarelo_cmyk_int = (c_int, m_int, y_int, k_int)
     criar_imagem_cmyk(LARGURA, ALTURA, cor_amarelo_cmyk_int, "cor_cmyk_conversao")
 
-    
+    print('Teste 2')
+
+    vermelho_rgb = (255,0,0)
+    print(f"Vermelho RGB: {vermelho_rgb}")
+    vermelhor_cmyk = rgb_para_cmyk(vermelho_rgb[0], vermelho_rgb[1], vermelho_rgb[2])
+    print(f"Vermelho CMYK sem normalizar: {vermelhor_cmyk}")
+
+    c_int = int(vermelhor_cmyk[0] * 255)
+    m_int = int(vermelhor_cmyk[1] * 255)
+    y_int = int(vermelhor_cmyk[2] * 255)
+    k_int = int(vermelhor_cmyk[3] * 255)
+
+    vermelho_cmyk_int = (c_int, m_int, y_int, k_int)
+    print(f"Vermelho CMYK normalizado")
+
+    criar_imagem_rgb(LARGURA, ALTURA, vermelho_rgb, "cor_vermelho_rgb")
+    criar_imagem_cmyk(LARGURA, ALTURA, vermelho_cmyk_int, "cor_vermelho_cmyk_conversao")
+        
