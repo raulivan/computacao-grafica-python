@@ -90,7 +90,7 @@ def escala_na_origem():
     
     ax.legend(loc='upper right', fontsize=12)
     
-    print("[*] Renderizando o plano cartesiano...")
+    print("Renderizando o plano cartesiano...")
     plt.show()
 
 if __name__ == "__main__":
