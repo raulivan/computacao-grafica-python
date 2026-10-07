@@ -148,7 +148,6 @@ def desenhar_casa():
     casa 3D
     """
     glPushMatrix()
-
     # translação 
     glTranslatef(0, 2, 0)
     # escala:
