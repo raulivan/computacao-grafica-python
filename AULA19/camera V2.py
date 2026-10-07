@@ -8,6 +8,7 @@ import math
 camera_pos = np.array(
     [0.0, 1.0, 5.0]
 , dtype=np.float32) # Olho (Eye)
+
 camera_front = np.array(
     [0.0, 0.0, -1.0]
 , dtype=np.float32) # Alvo (Direção)
@@ -18,8 +19,6 @@ camera_up = np.array(
 
 # Delta Time (FPS)
 tempo_anterior = 0.0
-
-# Loo)
 
 # rotação Esquerda/Direita, começa em -90 para olhar pro -Z
 yaw = -90.0
@@ -37,6 +36,7 @@ def callback_mouse(window, xpos, ypos):
         primeiro_mouse = False
 
     x_offset = xpos - ultimo_x
+
     #Windows cresce para baixo, e o OpenGL para cima
     y_offset = ultimo_y - ypos 
     ultimo_x = xpos; ultimo_y = ypos
@@ -45,7 +45,7 @@ def callback_mouse(window, xpos, ypos):
     yaw += x_offset * sensibilidade
     pitch += y_offset * sensibilidade
 
-    # Trava do Pescoço, pra nãoquebrar a espinha)
+    # Trava do Pescoço, pra não quebrar a espinha
     if pitch > 89.0: pitch = 89.0
     if pitch < -89.0: pitch = -89.0
 
@@ -55,12 +55,14 @@ def callback_mouse(window, xpos, ypos):
     frente_z = math.sin(math.radians(yaw)) * math.cos(math.radians(pitch))
     
     vetor_frente = np.array([frente_x, frente_y, frente_z])
+
      # Normaliza (tamanho 1)
     camera_front = vetor_frente / np.linalg.norm(vetor_frente)
 
 def processar_teclado(janela, delta_time):
     global camera_pos, camera_front, camera_up
-    # Move 2.5 unidades por segundo
+    
+    # move 2.5 unidades por segundo
     velocidade = 2.5 * delta_time 
 
     # 'W' move o mundo para trás 
@@ -168,8 +170,8 @@ def main():
          0.5,0.5,0.5, 
         -0.5,0.5,0.5, 
         -0.5,-0.5,-0.5, 
-        0.5,-0.5,-0.5, 
-        0.5,0.5,-0.5, 
+         0.5,-0.5,-0.5, 
+         0.5,0.5,-0.5, 
         -0.5,0.5,-0.5
     ], dtype=np.float32)
 
