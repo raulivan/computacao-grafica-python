@@ -6,16 +6,13 @@ import math
 
 # Camera
 camera_pos = np.array(
-    [0.0, 1.0, 5.0]
-, dtype=np.float32) # Olho (Eye)
+    [0.0, 1.0, 5.0], dtype=np.float32) # Olho (Eye)
 
 camera_front = np.array(
-    [0.0, 0.0, -1.0]
-, dtype=np.float32) # Alvo (Direção)
+    [0.0, 0.0, -1.0], dtype=np.float32) # Alvo (Direção)
 
 camera_up = np.array(
-    [0.0, 1.0, 0.0]
-, dtype=np.float32) # Cima (Up)
+    [0.0, 1.0, 0.0], dtype=np.float32) # Cima (Up)
 
 # Delta Time (FPS)
 tempo_anterior = 0.0
@@ -58,6 +55,7 @@ def callback_mouse(window, xpos, ypos):
 
      # Normaliza (tamanho 1)
     camera_front = vetor_frente / np.linalg.norm(vetor_frente)
+    # fim callback_mouse
 
 def processar_teclado(janela, delta_time):
     global camera_pos, camera_front, camera_up
@@ -82,6 +80,7 @@ def processar_teclado(janela, delta_time):
         vetor_direita = np.cross(camera_front, camera_up)
         vetor_direita = vetor_direita / np.linalg.norm(vetor_direita)
         camera_pos += velocidade * vetor_direita
+    # fim processar_teclado
 
 def matriz_lookat(eye, target, up):
     # Z-axis: Para trás
@@ -104,6 +103,7 @@ def matriz_lookat(eye, target, up):
     matriz[1, 3] = -np.dot(y_axis, eye)
     matriz[2, 3] = -np.dot(z_axis, eye)
     return matriz
+    # matriz_lookat 
 
 def matriz_perspectiva(fov, aspecto, perto, longe):
     f = 1.0 / np.tan(np.radians(fov) / 2.0)
@@ -113,6 +113,7 @@ def matriz_perspectiva(fov, aspecto, perto, longe):
     m[2,2] = (longe+perto)/(perto-longe)
     m[2,3] = (2.0*longe*perto)/(perto-longe); m[3,2] = -1.0
     return m
+    # matriz_perspectiva
 
 def matriz_translacao(x, y, z): 
     return np.array([
@@ -121,6 +122,7 @@ def matriz_translacao(x, y, z):
         [0,0,1,z], 
         [0,0,0,1]
     ], dtype=np.float32)
+    # matriz_translacao
 
 VERTEX_SHADER = """
 #version 330 core
@@ -130,7 +132,6 @@ void main() {
     gl_Position = MVP * vec4(aPos, 1.0); 
 }
 """
-
 FRAGMENT_SHADER = """
 #version 330 core
 out vec4 FragColor;
@@ -239,21 +240,27 @@ def main():
 
         # desenha a "Cidade" de 25 cubos
         glBindVertexArray(VAO)
+
         for i, pos in enumerate(posicoes_cubos):
             model = matriz_translacao(pos[0], pos[1], pos[2])
             MVP = projecao @ view @ model
             
-            glUniformMatrix4fv(loc_mvp, 1, GL_FALSE, np.ascontiguousarray(MVP.T, dtype=np.float32))
+            glUniformMatrix4fv(loc_mvp, 1, GL_FALSE, 
+                               np.ascontiguousarray(MVP.T, dtype=np.float32))
             
             r = (pos[0] + 6.0) / 12.0
             b = (pos[2] + 6.0) / 12.0
             glUniform3f(loc_cor, r, 0.5, b)
             
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, None)
+            # fim for i, pos in enumerate(posicoes_cubos):
 
         glfw.swap_buffers(janela)
+        # fim while not glfw.window_should_close
 
     glfw.terminate()
+    # fim main
 
 if __name__ == "__main__":
     main()
+    
