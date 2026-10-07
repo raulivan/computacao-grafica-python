@@ -6,7 +6,6 @@ def desenhar_letra_F(r, g, b):
     """Desenha letra F na origem"""
     glColor3f(r, g, b) # Define a cor do objeto
     glBegin(GL_QUADS)
-    
     # Tronco vertical
     glVertex2f(0.0, 0.0);  glVertex2f(1.0, 0.0)
     glVertex2f(1.0, 4.0);  glVertex2f(0.0, 4.0)
@@ -18,11 +17,11 @@ def desenhar_letra_F(r, g, b):
     # Traço do meio
     glVertex2f(1.0, 1.5);  glVertex2f(2.0, 1.5)
     glVertex2f(2.0, 2.5);  glVertex2f(1.0, 2.5)
-    
     glEnd()
+    # fim desenhar_letra_F
 
 def desenhar_eixos_globais():
-    """desenha um plano no fundo para marcar o X=0 e Y=0 do Universo"""
+    """desenha um plano no fundo para marcar o X=0 e Y=0 do mundo"""
     glColor3f(0.3, 0.3, 0.3)
     glBegin(GL_LINES)
     glVertex2f(-10, 0); glVertex2f(10, 0) # Eixo X
@@ -100,7 +99,6 @@ def main():
         # CISALHAMENTO / SHEAR
         glPushMatrix()
         glTranslatef(0.0, -8.0, 0.0)
-        
         # matriz 4x4 (Array Linear de 16 posições)
         fator_cisalhamento_x = 1.2
         matriz_shear = np.array([
@@ -109,7 +107,6 @@ def main():
             0.0, 0.0, 1.0, 0.0, # Coluna 3
             0.0, 0.0, 0.0, 1.0  # Coluna 4
         ], dtype=np.float32)
-        
         # passa a matriz para placa de video
         glMultMatrixf(matriz_shear)
         
@@ -117,8 +114,10 @@ def main():
         glPopMatrix()
 
         glfw.swap_buffers(janela)
+        # fim while not glfw.window_should_close(janela):
 
     glfw.terminate()
+    # fim main
 
 if __name__ == "__main__":
     main()
