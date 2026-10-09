@@ -6,7 +6,7 @@ def desenhar_chao():
     """GL_QUADS: 
        Conecta 4 vértices para formar um quadrado/retângulo
     """
-    glColor3f(0.1, 0.6, 0.2) # Verde escuro
+    glColor3f(0.1, 0.6, 0.2) # Verde
     
     glBegin(GL_QUADS)
     glVertex2f(-1.0, -1.0) # Canto inferior esquerdo
@@ -17,7 +17,7 @@ def desenhar_chao():
 
 def desenhar_montanhas():
     """GL_TRIANGLES: 
-    Conecta vértices de 3 em 3 para formar triângulos independentes"""
+    Conecta vértices de 3 em 3 para formar triângulos"""
     glColor3f(0.5, 0.5, 0.5) # Cinza
     
     glBegin(GL_TRIANGLES)
@@ -35,7 +35,7 @@ def desenhar_montanhas():
 
 def desenhar_sol(centro_x, centro_y, raio):
     """GL_POLYGON: 
-    Conecta dezenas de vértices em um círculo fechado"""
+    Conecta n de vértices em um círculo fechado"""
     glColor3f(1.0, 0.8, 0.1) # Amarelo
     
     glBegin(GL_POLYGON)
@@ -83,7 +83,7 @@ def desenhar_estrelas():
 def main():
     if not glfw.init(): return
     
-    janela = glfw.create_window(800, 600, "Dicionário de Funções OpenGL"
+    janela = glfw.create_window(800, 600, "Funções OpenGL"
                                 , None, None)
     if not janela: return glfw.terminate()
     glfw.make_context_current(janela)
