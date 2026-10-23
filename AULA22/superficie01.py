@@ -44,14 +44,10 @@ def superficie_revolucao(u, v):
     # Perfil definido por interpolação linear entre alturas
     # Cada par contém (altura, raio)
     perfil = [
-        (0.0, 0.45),
-        (0.15, 0.65),
-        (0.40, 0.85),
-        (0.75, 0.90),
-        (1.05, 0.68),
-        (1.30, 0.48),
-        (1.50, 0.55),
-        (1.65, 0.72),
+        (0.0, 0.45), (0.15, 0.65),
+        (0.40, 0.85), (0.75, 0.90),
+        (1.05, 0.68), (1.30, 0.48),
+        (1.50, 0.55), (1.65, 0.72),
     ]
 
     # converte u para a posição correspondente no perfil
@@ -72,12 +68,12 @@ def superficie_revolucao(u, v):
 
     # centraliza na origem
     return (x, y, z - 0.8)
+    # fim superficie_revolucao
 
 
 def superficie_deslocamento(u, v):
     """
     superfície ondulada
-
     calcuila s x e y no plano-base
     desloca cada ponto verticalmente
     de acordo com uma função senoidal
@@ -92,6 +88,7 @@ def superficie_deslocamento(u, v):
     )
 
     return (x, y, z)
+    # fim superficie_deslocamento
 
 
 def superficie_bilinear(u, v):
@@ -113,6 +110,7 @@ def superficie_bilinear(u, v):
     )
 
     return tuple(p)
+    # fim superficie_bilinear   
 
 
 def bernstein(i, n, t):
@@ -125,6 +123,7 @@ def bernstein(i, n, t):
         * (1.0 - t) ** (n - i)
         * t ** i
     )
+    # fim bernstein
 
 
 def superficie_bezier(u, v):
@@ -176,6 +175,7 @@ def superficie_bezier(u, v):
             ponto += bu * bv * controle[i, j]
 
     return tuple(ponto)
+    # fim superficie_bezier
 
 
 def superficie_esfera(u, v):
@@ -192,6 +192,7 @@ def superficie_esfera(u, v):
     z = math.sin(latitude)
 
     return (x, y, z)
+    # superficie_esfera
 
 
 def interpolacao_trilinear(u, v, w, valores):
@@ -199,7 +200,6 @@ def interpolacao_trilinear(u, v, w, valores):
     Interpola um escalar dentro de um cubo unitário
     'valores' é um dicionário com as oito chaves:
         (0,0,0), (1,0,0), ..., (1,1,1)
-
     u, v e w devem pertencer ao intervalo [0, 1]
     """
     resultado = 0.0
@@ -216,6 +216,7 @@ def interpolacao_trilinear(u, v, w, valores):
                 resultado += valores[(i, j, k)] * wi * wj * wk
 
     return resultado
+    # interpolacao_trilinear
 
 
 def demonstrar_trilinear():
@@ -273,6 +274,7 @@ def desenhar_superficie(funcao, cor):
             glVertex3f(x, y, z)
 
         glEnd()
+    # fim desenhar_superficie
 
 
 def inicializar():
@@ -314,7 +316,7 @@ def desenhar_eixos():
 
 def exibir():
     """
-    Callback responsável por desenhar cada quadro
+    Callback desenhar cada quadro
     """
     global rotacao
 
@@ -340,37 +342,28 @@ def exibir():
     if modo == 1:
         desenhar_superficie(
             superficie_revolucao,
-            (0.3, 0.9, 1.0)
-        )
-
+            (0.3, 0.9, 1.0))
     elif modo == 2:
         desenhar_superficie(
             superficie_deslocamento,
-            (1.0, 0.7, 0.2)
-        )
-
+            (1.0, 0.7, 0.2))
     elif modo == 3:
         desenhar_superficie(
             superficie_bilinear,
-            (0.5, 1.0, 0.5)
-        )
-
+            (0.5, 1.0, 0.5))
     elif modo == 4:
         desenhar_superficie(
             superficie_bezier,
-            (1.0, 0.4, 0.8)
-        )
-
+            (1.0, 0.4, 0.8))
     elif modo == 5:
         desenhar_superficie(
             superficie_esfera,
-            (0.5, 0.8, 1.0)
-        )
+            (0.5, 0.8, 1.0))
 
     # glutSwapBuffers apresenta o quadro desenhado quando
     # a janela foi criada com GLUT_DOUBLE
     glutSwapBuffers()
-
+    # fim exibir
 
 def redimensionar(largura, altura):
     """
@@ -394,16 +387,14 @@ def redimensionar(largura, altura):
         100.0                  # plano distante
     )
     glMatrixMode(GL_MODELVIEW)
+    # fim redimensionar
 
 
 def teclado(tecla, x, y):
-
     global modo, rotacao
-
     # GLUT entrega a tecla como bytes
     if tecla == b'\x1b':
         sys.exit(0)
-
     if tecla in (b'1', b'2', b'3', b'4', b'5'):
         modo = int(tecla.decode("ascii"))
 
@@ -414,16 +405,15 @@ def teclado(tecla, x, y):
             4: "Superfície de Bézier",
             5: "Esfera paramétrica",
         }
-
         print("Modelo selecionado:", nomes[modo])
 
     elif tecla in (b't', b'T'):
         demonstrar_trilinear()
-
     elif tecla in (b'r', b'R'):
         rotacao = 25.0
 
     glutPostRedisplay()
+    # fim teclado
 
 
 def animar():
@@ -443,14 +433,10 @@ def main():
     # GLUT_DOUBLE usa buffers duplos para reduzir falhas .
     # GLUT_RGB seleciona o modo de cores RGB.
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
-
     glutInitWindowSize(1000, 750)
     glutInitWindowPosition(100, 80)
 
-    glutCreateWindow(
-        b"Superficies 3D"
-    )
-
+    glutCreateWindow(b"Superficies 3D")
     inicializar()
 
     # Callbacks: desenho, redimensionamento e teclado
@@ -474,7 +460,7 @@ def main():
 
     # glutMainLoop inicia o ciclo de eventos da janela.
     glutMainLoop()
-
+    # fim main
 
 if __name__ == "__main__":
     main()
