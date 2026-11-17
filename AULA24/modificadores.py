@@ -1,7 +1,6 @@
 
 import numpy as np
 import glfw
-
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
@@ -10,16 +9,13 @@ from OpenGL.GLU import *
 def criar_cubo(subdivisoes=8):
     vertices = []
     faces = []
-
     # Dicionário para evitar vértices duplicados.
     mapa = {}
-
     # Coordenadas da grade.
     valores = np.linspace(-1, 1, subdivisoes + 1)
 
     def adicionar_vertice(ponto):
         chave = tuple(np.round(ponto, 6))
-
         if chave not in mapa:
             mapa[chave] = len(vertices)
             vertices.append(ponto)
@@ -33,9 +29,7 @@ def criar_cubo(subdivisoes=8):
         for sinal in [-1, 1]:
             for i in range(subdivisoes):
                 for j in range(subdivisoes):
-
                     pontos = []
-
                     coordenadas = [
                         (valores[i], valores[j]),
                         (valores[i+1], valores[j]),
@@ -44,7 +38,6 @@ def criar_cubo(subdivisoes=8):
                     ]
 
                     for a, b in coordenadas:
-
                         ponto = [0.0, 0.0, 0.0]
 
                         ponto[eixo] = sinal
@@ -317,34 +310,24 @@ def aplicar_modificador(nome, vertices, faces, valor):
 
     if nome == "BEND":
         return bend(vertices, valor), faces
-
     if nome == "LATTICE":
         return lattice(vertices, valor), faces
-
     if nome == "MESHSMOOTH":
         return mesh_smooth(vertices, faces, valor), faces
-
     if nome == "OPTIMIZE":
         return optimize(valor)
-
     if nome == "BEVEL":
         return bevel(vertices, valor), faces
-
     if nome == "MELT":
         return melt(vertices, valor), faces
-
     if nome == "SKEW":
         return skew(vertices, valor), faces
-
     if nome == "SQUEEZE":
         return squeeze(vertices, valor), faces
-
     if nome == "STRETCH":
         return stretch(vertices, valor), faces
-
     if nome == "TAPER":
         return taper(vertices, valor), faces
-
     if nome == "TWIST":
         return twist(vertices, valor), faces
 
@@ -373,7 +356,6 @@ def teclado(janela, tecla, scancode, acao, mods):
     }
 
     if tecla in teclas:
-
         selecionado = teclas[tecla]
 
         print("\nModificador:", selecionado)
